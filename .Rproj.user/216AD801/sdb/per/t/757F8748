@@ -1,0 +1,17 @@
+{
+    "contents" : "xxx\n===\n\nA\n\nB\n- C\n- D\n- E\n\nC\n\n1. AAA\n1. AAA\n1. AAA\n",
+    "created" : 1407576002244.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3063019333",
+    "id" : "757F8748",
+    "lastKnownWriteTime" : 1407576042,
+    "path" : "C:/My GitHub/Developing_Data_Products/README.md",
+    "project_path" : "README.md",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "markdown"
+}

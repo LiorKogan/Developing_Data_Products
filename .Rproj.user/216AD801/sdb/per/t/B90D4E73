@@ -1,0 +1,17 @@
+{
+    "contents" : "if (!require(shiny))\n{\n\tinstall.packages(\"shiny\", dep = T)\n\tlibrary(shiny)\n}\n\nif (!require(numDeriv))\n{\n\tinstall.packages(\"numDeriv\", dep = T)\n\tlibrary(numDeriv)\n}\n\nif (!require(ggplot2))\n{\n\tinstall.packages(\"ggplot2\", dep = T)\n\tlibrary(ggplot2)\n}\n\n# =========================================\n\nshinyServer(function(input, output, session)\n{\n\toutput$plot1 <- renderPlot(\n\t{\n\t\tf<-0; x1<-0; y1<-0; slope<-0; intercept<-0\n\t\t\n\t\tz <- tryCatch(\n\t\t\t{\n\t\t\t\tf         <- function(x) { eval(parse(text = input$f )) }\n\t\t\t\tx1        <- input$d\n\t\t\t\ty1        <- f(x1)\n\t\t\t\tslope     <- grad(f, x1)\n\t\t\t\tintercept <- y1 - slope*x1\n\t\t\t\t0\n\t\t\t},\n\t\t\terror   = function(cond) { return(1) }, \n\t\t\twarning = function(cond) { return(2) } \t)\n\t\n\t\tif (z>0)\n\t\t{\n\t\t\toutput$text1 <- renderText(\"Error in function\")\n\t\t\toutput$text2 <- renderText(\"\")\n\t\t}\n\t\telse\n\t\t{\n\t\t\toutput$text1 <- renderText(paste(\"Plot of f(x) = \", input$f, \" for x between \", input$rangeX[1],  \"and \", input$rangeX[2], \":\"))\n\t\t\toutput$text2 <- renderText(paste(\"The derivative of f(x) at (\", x1, \",\", signif(y1,3), \") is \", signif(slope, 3)))\n\t\t\t\t\n\t\t\t#\tcurve(f, input$rangeX[1], input$rangeX[2], n = 5000, col = \"blue\")\n\t\t\t#\tabline(intercept, slope, col = \"red\", lwd = 2)\n\t\t\t#\tpoints(x1, y1)\n\t\t\n\t\t\tggplot(data.frame(x=c(input$rangeX[1], input$rangeX[2])), aes(x)) + \n\t\t\t\tstat_function(fun = f, n = 5000, color = \"blue\") + \n\t\t\t\tgeom_abline(intercept = intercept, slope = slope , color = \"red\", lwd = 1) +\n\t\t\t\tgeom_point (x = x1, y = y1, color = \"green\")\n\t\t}\n\t})\n})\n",
+    "created" : 1407503414571.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2245096480",
+    "id" : "B90D4E73",
+    "lastKnownWriteTime" : 1407573847,
+    "path" : "C:/My GitHub/Developing_Data_Products/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
