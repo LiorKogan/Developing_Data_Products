@@ -14,7 +14,19 @@ The UI output is composed of the following elemenents:
 
 When the function entered is not valid, an error message will be displayed instead of these output elements.
 
+
+
 This application is available at http://lior.shinyapps.io/Developing_Data_Products
+
+
+
+Alternatively, you can download server.R and ui.R and execute 
+
+library(shiny); runApp("my_app")
+
+from R.
+
+
 
 Enjoy!
 
