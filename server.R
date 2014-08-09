@@ -1,23 +1,14 @@
 # library used to build the interactive web application
-if (!require(shiny))
-{
-	install.packages("shiny", dep = T)
-	library(shiny)
-}
+library(shiny)
 
 # library used to calculate the derivative at a given point
-if (!require(numDeriv))
-{
-	install.packages("numDeriv", dep = T)
-	library(numDeriv)
-}
+library(numDeriv)
 
 # library used to generate the function graph
-if (!require(ggplot2))
-{
-	install.packages("ggplot2", dep = T)
-	library(ggplot2)
-}
+library(ggplot2)
+
+# library used to render README.md
+library(markdown)
 
 # =========================================
 
@@ -56,6 +47,7 @@ shinyServer(function(input, output, session)
 		
 			# using ggplot:
 			ggplot(data.frame(x=c(input$rangeX[1], input$rangeX[2])), aes(x)) + 
+				ylab("f(x)") +
 				stat_function(fun = f, n = 5000, color = "blue") + 
 				geom_abline(intercept = intercept, slope = slope , color = "red", lwd = 1) +
 				geom_point (x = x1, y = y1, color = "green")

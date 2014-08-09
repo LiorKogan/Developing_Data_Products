@@ -20,7 +20,9 @@ This application is available at http://lior.shinyapps.io/Developing_Data_Produc
 
 
 
-Alternatively, you can download server.R and ui.R and execute 
+Alternatively, you can download server.R and ui.R from https://github.com/LiorKogan/Developing_Data_Products, 
+
+and execute 
 
 library(shiny); runApp("my_app")
 
