@@ -1,8 +1,10 @@
 library(shiny)
 
+# shiny web UI object
 shinyUI(pageWithSidebar(
 			headerPanel("Function and derivative grapher"),
 			
+			# input panel
 			sidebarPanel
 			(
 				h3('Function'),
@@ -17,6 +19,7 @@ shinyUI(pageWithSidebar(
 				sliderInput(inputId = "d", label = "Draw derivative at x=", min = -10, max = 10, step = 0.01, value = 0)
 			),
 
+			# output panel
 			mainPanel
 			(
 				h3('Function and derivative graph'),

@@ -1,15 +1,18 @@
+# library used to build the interactive web application
 if (!require(shiny))
 {
 	install.packages("shiny", dep = T)
 	library(shiny)
 }
 
+# library used to calculate the derivative at a given point
 if (!require(numDeriv))
 {
 	install.packages("numDeriv", dep = T)
 	library(numDeriv)
 }
 
+# library used to generate the function graph
 if (!require(ggplot2))
 {
 	install.packages("ggplot2", dep = T)
@@ -26,30 +29,32 @@ shinyServer(function(input, output, session)
 		
 		z <- tryCatch(
 			{
-				f         <- function(x) { eval(parse(text = input$f )) }
+				f         <- function(x) { eval(parse(text = input$f )) } # convert input from string to function
 				x1        <- input$d
-				y1        <- f(x1)
-				slope     <- grad(f, x1)
-				intercept <- y1 - slope*x1
+				y1        <- f(x1)              # the value of f(x) at x=x1
+				slope     <- grad(f, x1)		# the derivative of f at x1
+				intercept <- y1 - slope*x1      # the intercept of the slope line
 				0
 			},
 			error   = function(cond) { return(1) }, 
 			warning = function(cond) { return(2) } 	)
 	
-		if (z>0)
+		if (z>0) # function is not valid
 		{
 			output$text1 <- renderText("Error in function")
 			output$text2 <- renderText("")
 		}
-		else
+		else    # function is valid
 		{
 			output$text1 <- renderText(paste("Plot of f(x) = ", input$f, " for x between ", input$rangeX[1],  "and ", input$rangeX[2], ":"))
 			output$text2 <- renderText(paste("The derivative of f(x) at (", x1, ",", signif(y1,3), ") is ", signif(slope, 3)))
 				
+			# using basic plot:
 			#	curve(f, input$rangeX[1], input$rangeX[2], n = 5000, col = "blue")
 			#	abline(intercept, slope, col = "red", lwd = 2)
 			#	points(x1, y1)
 		
+			# using ggplot:
 			ggplot(data.frame(x=c(input$rangeX[1], input$rangeX[2])), aes(x)) + 
 				stat_function(fun = f, n = 5000, color = "blue") + 
 				geom_abline(intercept = intercept, slope = slope , color = "red", lwd = 1) +
