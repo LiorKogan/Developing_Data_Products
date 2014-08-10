@@ -38,3 +38,4 @@ Icon
 # R project files
 .R*
 .Rproj.user/
+grapher/libraries/

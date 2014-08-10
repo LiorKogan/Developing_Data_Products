@@ -1,3 +1,7 @@
+# ======================
+# shiny
+# ======================
+
 install.packages("shiny")
 library(shiny)
 
@@ -63,5 +67,27 @@ runApp(display.mode = 'showcase')
 # deploying app to https://www.shinyapps.io
 library(shinyapps)
 deployApp()
+## important!!!!!! - before deploying - remove from dir anything that is not needed: notes.txt, shinyapps folder, grapher folder
 
+
+
+# ======================
+# slidify
+# ======================
+
+install.packages("devtools")
+library(devtools)
+install_github('slidify'         , 'ramnathv')
+install_github('slidifyLibraries', 'ramnathv')
+library(slidify)
+
+author("grapher")          # presentation name - a subdir with this name will be created
+slidify('index.Rmd')       # generates HTML5 index.html
+
+setwd("C:/My GitHub/Developing_Data_Products/Grapher")
+
+library(knitr)
+browseURL('index.html')    # open index.html in browser
+
+publish_github(user, repo) # publish to GitHub
 

@@ -1,0 +1,63 @@
+---
+title       : Function and derivative grapher 
+subtitle    : Developing Data Products - Course Project
+author      : Lior Kogan
+job         : Coursera student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Function and Derivative Grapher
+
+1. Edit YAML front matter
+2. Write using R Markdown
+3. Use an empty line followed by three dashes to separate slides!
+
+--- .class #id 
+
+## Input Panel
+
+$x^2$ 
+
+<div style='text-align: right;'>
+    <img src='assets/img/input.png' />
+</div>
+
+--- .class #id 
+
+## Output Panel
+
+```{r echo=FALSE, fig.width=10}
+library(numDeriv)
+library(ggplot2)
+
+input     <- list(f      = "sin(x^2)",
+                  rangeX = c(-5, 5)  ,
+                  d      = 0.5        )
+
+f         <- function(x) { eval(parse(text = input$f )) } # convert input from string to function
+x1        <- input$d
+y1        <- f(x1)              # the value of f(x) at x=x1
+slope     <- grad(f, x1)        # the derivative of f at x1
+intercept <- y1 - slope*x1      # the intercept of the slope line
+```
+
+Plot of f(x) = `r input$f` for x between `r input$rangeX[1]` and `r input$rangeX[2]`:   
+The derivative of f(x) at (`r x1`, `r signif(y1,3)`) is `r signif(slope, 3)`   
+```{r echo=FALSE, fig.width=10}
+ggplot(data.frame(x=c(input$rangeX[1], input$rangeX[2])), aes(x)) + 
+	ylab("f(x)") +
+	stat_function(fun = f, n = 5000, color = "blue") + 
+	geom_abline(intercept = intercept, slope = slope , color = "red", lwd = 1) +
+	geom_point (x = x1, y = y1, color = "green")
+
+```
+
+--- .class #id 
+
+## About Screen
+
